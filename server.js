@@ -145,9 +145,14 @@ app.get('/api/search', async (req, res) => {
 
       if (!albumsRes.ok) {
         const errText = await albumsRes.text();
-        console.error('Spotify albums API call failed:', albumsRes.status, errText);
+        const retryAfter = albumsRes.headers.get('retry-after');
+        console.error(`Spotify albums API call failed. Status: ${albumsRes.status}. Retry-After: ${retryAfter}s. Details: ${errText}`);
         if (albumsList.length === 0) {
-          return res.status(albumsRes.status).json({ error: 'Error calling Spotify albums API.', details: errText });
+          return res.status(albumsRes.status).json({ 
+            error: 'Error calling Spotify albums API.', 
+            details: errText,
+            retryAfter: retryAfter 
+          });
         }
         break;
       }
