@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spotify Album Finder | Premium Discography Explorer</title>
+  <!-- Google Fonts - Outfit & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Lucide Icons for premium modern styling -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Ambient background elements for high-end styling -->
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
+  
+  <div class="app-container">
+    <header class="app-header">
+      <div class="brand">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="brand-icon">
+          <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0m3.669 11.538a.5.5 0 0 1-.686.165c-1.879-1.147-4.243-1.407-7.028-.77a.499.499 0 0 1-.222-.973c3.048-.696 5.662-.397 7.77.892a.5.5 0 0 1 .166.686m.979-2.178a.624.624 0 0 1-.858.205c-2.15-1.321-5.428-1.704-7.972-.932a.625.625 0 0 1-.362-1.194c2.905-.881 6.517-.454 8.986 1.063a.624.624 0 0 1 .206.858m.084-2.268C10.154 5.56 5.9 5.419 3.438 6.166a.748.748 0 1 1-.434-1.432c2.825-.857 7.523-.692 10.492 1.07a.747.747 0 1 1-.764 1.288"/>
+        </svg>
+        <h1>Spotify Album Finder</h1>
+      </div>
+      <p class="tagline">Explore complete discographies with standard visual excellence</p>
+    </header>
+
+    <!-- Search Section -->
+    <section class="search-section">
+      <form id="search-form" class="search-form">
+        <div class="search-input-wrapper">
+          <i data-lucide="search" class="search-icon"></i>
+          <input 
+            type="text" 
+            id="search-input" 
+            placeholder="Search for an artist (e.g., Daft Punk, Billie Eilish)..." 
+            required 
+            autocomplete="off"
+          >
+          <button type="button" id="clear-btn" class="clear-btn hidden" aria-label="Clear search">
+            <i data-lucide="x"></i>
+          </button>
+        </div>
+        <button type="submit" class="search-submit-btn">
+          <span>Search</span>
+          <i data-lucide="arrow-right"></i>
+        </button>
+      </form>
+
+    </section>
+
+    <!-- Error container -->
+    <div id="error-container" class="error-container hidden">
+      <i data-lucide="alert-circle" class="error-icon"></i>
+      <span id="error-message">Artist not found. Try another search.</span>
+    </div>
+
+    <!-- Main Results Area -->
+    <main id="main-results" class="main-results hidden">
+      <!-- Artist Hero Profile Card -->
+      <section id="artist-profile" class="artist-profile"></section>
+
+      <!-- Discography Section -->
+      <section class="discography-section">
+        <div class="discography-header">
+          <h2 class="section-title">Discography</h2>
+          <!-- Filtering Tabs -->
+          <div class="filter-tabs">
+            <button class="filter-tab active" data-filter="all">All Releases</button>
+            <button class="filter-tab" data-filter="album">Albums</button>
+            <button class="filter-tab" data-filter="single">Singles & EPs</button>
+          </div>
+        </div>
+
+        <!-- Albums Grid -->
+        <div id="albums-grid" class="albums-grid"></div>
+      </section>
+    </main>
+
+    <!-- Loading State Skeleton -->
+    <div id="loading-state" class="loading-state hidden">
+      <div class="skeleton-artist-hero">
+        <div class="skeleton-avatar"></div>
+        <div class="skeleton-details">
+          <div class="skeleton-line title"></div>
+          <div class="skeleton-line subtitle"></div>
+          <div class="skeleton-tags">
+            <div class="skeleton-tag"></div>
+            <div class="skeleton-tag"></div>
+          </div>
+        </div>
+      </div>
+      <div class="skeleton-grid">
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <div id="empty-state" class="empty-state">
+      <i data-lucide="disc" class="empty-icon animate-pulse"></i>
+      <h2>Find Your Favorite Artists</h2>
+      <p>Enter an artist's name above to explore their entire collection of albums, EPs, and singles.</p>
+    <!-- Dynamic Detail Modal -->
+    <div id="tracklist-modal" class="modal-container hidden">
+      <div id="modal-overlay" class="modal-overlay"></div>
+      <div class="modal-content">
+        <button id="modal-close" class="modal-close-btn" aria-label="Close details">
+          <i data-lucide="x"></i>
+        </button>
+        <div id="modal-body" class="modal-body">
+          <!-- Dynamically populated by app.js -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js" type="module"></script>
+  <script>
+    // Initialize Lucide icons on page load
+    lucide.createIcons();
+  </script>
+</body>
+</html>
